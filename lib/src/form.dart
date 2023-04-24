@@ -8,12 +8,14 @@ class AuthPasswordField extends StatelessWidget {
   final String name;
   final String label;
   final String hint;
+  final FormFieldValidator<String>? validator;
 
   const AuthPasswordField({
     Key? key,
     this.name = 'password',
     this.label = '密码',
     this.hint = '请输入密码',
+    this.validator,
   }) : super(key: key);
 
   @override
@@ -26,23 +28,24 @@ class AuthPasswordField extends StatelessWidget {
         LengthLimitingTextInputFormatter(16),
         FilteringTextInputFormatter.allow(RegExp(r"[a-zA-Z0-9]*")),
       ],
-      validator: FormBuilderValidators.compose([
-        FormBuilderValidators.match(
-          "[a-zA-Z]",
-          errorText: "必须包含大小写字母",
-        ),
-        FormBuilderValidators.match(
-          "[0-9]",
-          errorText: "必须包含数字",
-        ),
-        FormBuilderValidators.required(errorText: '请输入密码'),
-        FormBuilderValidators.minLength(6, errorText: "长度不能小于6"),
-        FormBuilderValidators.maxLength(16, errorText: "长度不能大于16"),
-        FormBuilderValidators.match(
-          "[a-zA-Z0-9]{6,16}",
-          errorText: "只允许6到16位的大小写字母或数字",
-        ),
-      ]),
+      validator: validator ??
+          FormBuilderValidators.compose([
+            FormBuilderValidators.match(
+              "[a-zA-Z]",
+              errorText: "必须包含大小写字母",
+            ),
+            FormBuilderValidators.match(
+              "[0-9]",
+              errorText: "必须包含数字",
+            ),
+            FormBuilderValidators.required(errorText: '请输入密码'),
+            FormBuilderValidators.minLength(6, errorText: "长度不能小于6"),
+            FormBuilderValidators.maxLength(16, errorText: "长度不能大于16"),
+            FormBuilderValidators.match(
+              "[a-zA-Z0-9]{6,16}",
+              errorText: "只允许6到16位的大小写字母或数字",
+            ),
+          ]),
       decoration: InputDecoration(
         labelText: label,
         hintText: hint,
