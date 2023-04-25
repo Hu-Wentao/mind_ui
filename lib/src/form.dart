@@ -8,6 +8,7 @@ class AuthPasswordField extends StatelessWidget {
   final String name;
   final String label;
   final String hint;
+  final List<TextInputFormatter>? inputFormatters;
   final FormFieldValidator<String>? validator;
 
   const AuthPasswordField({
@@ -15,6 +16,7 @@ class AuthPasswordField extends StatelessWidget {
     this.name = 'password',
     this.label = '密码',
     this.hint = '请输入密码',
+    this.inputFormatters,
     this.validator,
   }) : super(key: key);
 
@@ -24,10 +26,11 @@ class AuthPasswordField extends StatelessWidget {
       name: name,
       obscureText: true,
       autovalidateMode: AutovalidateMode.onUserInteraction,
-      inputFormatters: [
-        LengthLimitingTextInputFormatter(16),
-        FilteringTextInputFormatter.allow(RegExp(r"[a-zA-Z0-9]*")),
-      ],
+      inputFormatters: inputFormatters ??
+          [
+            LengthLimitingTextInputFormatter(16),
+            FilteringTextInputFormatter.allow(RegExp(r"[a-zA-Z0-9]*")),
+          ],
       validator: validator ??
           FormBuilderValidators.compose([
             FormBuilderValidators.match(
