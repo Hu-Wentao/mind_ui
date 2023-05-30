@@ -72,6 +72,8 @@ class MdMainColumn extends StatelessWidget {
           child: bottom.isEmpty
               ? _buildColumn(context, controller)
               : Column(
+                  mainAxisAlignment: mainAxisAlignment,
+                  crossAxisAlignment: crossAxisAlignment,
                   mainAxisSize: mainAxisSize,
                   children: [
                     Expanded(child: _buildColumn(context, controller)),
